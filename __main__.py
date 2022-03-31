@@ -14,7 +14,6 @@ site_tld = split_domain[-1] # TLD is last element
 
 website_bucket = aws.s3.Bucket(site_name,
     bucket=site_domain,
-    acl="public-read",
     website=aws.s3.BucketWebsiteArgs(
         index_document="index.html"
     )
