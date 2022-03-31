@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: pip3 install -r function/requirements.txt
+      - run: pip3 install -r lambda_function/requirements.txt
       - name: Configure AWS Auth
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -20,4 +20,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
       - name: Lambda Function unit test
-        run: python3 function/test_main.py
+        run: python3 lambda_function/test_main.py
