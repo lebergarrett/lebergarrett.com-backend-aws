@@ -3,7 +3,7 @@ import boto3
 
 def lambda_handler(event, context):
   dynamodbclient=boto3.resource('dynamodb')
-  table = dynamodbclient.Table("Visitors")
+  table = dynamodbclient.Table("lebergarrett-visitors")
   response = table.update_item(
     Key={
         'website':'lebergarrett.com'

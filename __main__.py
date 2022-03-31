@@ -1,3 +1,5 @@
+import json
+import os
 import pulumi
 import pulumi_aws as aws
 import tldextract
@@ -113,5 +115,110 @@ www_redirect = aws.route53.Record(f"www-{site_name}",
     records=[site_domain]
 )
 
-# Export the name of the bucket
-#pulumi.export('bucket_name', bucket.id)
+# ---------- Visitors App ----------
+app_name = "visitors-app"
+
+visitors_table = aws.dynamodb.Table(app_name,
+    name=f"{site_name}-visitors",
+    billing_mode="PROVISIONED",
+    read_capacity=1,
+    write_capacity=1,
+    hash_key="website",
+
+    attributes=[
+        aws.dynamodb.TableAttributeArgs(
+            name="website",
+            type="S",
+        )
+    ]
+)
+
+iam_for_lambda = aws.iam.Role(app_name, assume_role_policy="""{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": "sts:AssumeRole",
+            "Principal": {
+                "Service": "lambda.amazonaws.com"
+            },
+            "Effect": "Allow",
+            "Sid": ""
+        }
+    ]
+}
+""")
+
+PATH_TO_SOURCE_CODE = "./lambda_function"
+
+# The Lambda Function source code itself needs to be zipped up into an
+# archive, which we create using the pulumi.AssetArchive primitive.
+assets = {}
+for file in os.listdir(PATH_TO_SOURCE_CODE):
+    location = os.path.join(PATH_TO_SOURCE_CODE, file)
+    asset = pulumi.FileAsset(path=location)
+    assets[file] = asset
+
+archive = pulumi.AssetArchive(assets=assets)
+
+visitors_lambda = aws.lambda_.Function(app_name,
+    code=archive,
+    role=iam_for_lambda.arn,
+    handler="main.lambda_handler",
+    runtime="python3.8",
+)
+
+def create_iam_role_policy(table_arn):
+    return json.dumps({
+        "Version": "2012-10-17",
+        "Statement": [{
+            "Action": ["dynamodb:UpdateItem"],
+            "Effect": "Allow",
+            "Resource": table_arn,
+        }]
+    })
+
+iam_role_policy = aws.iam.RolePolicy(app_name,
+    role=iam_for_lambda.id,
+    policy=visitors_table.arn.apply(create_iam_role_policy)
+)
+
+api_gateway = aws.apigateway.RestApi(app_name)
+
+api_resource = aws.apigateway.Resource(app_name,
+    rest_api=api_gateway.id,
+    parent_id=api_gateway.root_resource_id,
+    path_part="getcount",
+)
+
+api_method = aws.apigateway.Method(app_name,
+    rest_api=api_gateway.id,
+    resource_id=api_resource.id,
+    http_method="ANY",
+    authorization="NONE",
+)
+
+api_integration = aws.apigateway.Integration(app_name,
+    opts=pulumi.ResourceOptions(depends_on=[visitors_lambda]),
+    rest_api=api_gateway.id,
+    resource_id=api_method.resource_id,
+    http_method=api_method.http_method,
+    integration_http_method="POST",
+    type="AWS_PROXY",
+    uri=visitors_lambda.invoke_arn,
+)
+
+api_deployment = aws.apigateway.Deployment(app_name,
+    opts=pulumi.ResourceOptions(depends_on=[api_integration]),
+    rest_api=api_gateway.id,
+    stage_name="prod",
+)
+
+lambda_permission = aws.lambda_.Permission(app_name,
+    statement_id="AllowAPIGatewayInvoke",
+    action="lambda:InvokeFunction",
+    function=visitors_lambda.name,
+    principal="apigateway.amazonaws.com",
+    source_arn=api_gateway.execution_arn.apply(lambda arn: f"{arn}/*/*")
+)
+# Export the api endpoint
+pulumi.export('Api Endpoint', api_deployment.invoke_url)
