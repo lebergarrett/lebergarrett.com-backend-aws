@@ -222,3 +222,4 @@ lambda_permission = aws.lambda_.Permission(app_name,
 )
 # Export the api endpoint
 pulumi.export('Api Endpoint', api_deployment.invoke_url)
+pulumi.export('Api Path', api_resource.path_part)
