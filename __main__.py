@@ -1,9 +1,14 @@
 import pulumi
 import pulumi_aws as aws
+import tldextract
 
-site_name = "lebergarrett"
-site_tld = ".com"
-site_domain = site_name + site_tld
+# Pull in config from "./Pulumi.<stack>.yaml"
+config = pulumi.Config()
+site_domain = config.require('domain')
+
+split_domain = tldextract.extract(site_domain)
+site_name = '.'.join(filter(None, split_domain[:2])) # Get all except TLD and rejoin
+site_tld = split_domain[-1] # TLD is last element
 
 website_bucket = aws.s3.Bucket(site_name,
     bucket=site_domain,
