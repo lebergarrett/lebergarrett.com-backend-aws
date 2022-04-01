@@ -122,7 +122,7 @@ for i, domain in enumerate(site_domains):
         name=f"www.{domain}",
         type="CNAME",
         ttl=300,
-        records=[site_domain]
+        records=[domain]
     ))
 
 # ---------- Visitors App ----------
