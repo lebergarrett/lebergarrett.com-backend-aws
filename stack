@@ -1,0 +1,744 @@
+{
+    "version": 3,
+    "deployment": {
+        "manifest": {
+            "time": "2022-03-31T16:16:57.790675-07:00",
+            "magic": "c7840e4e7de4e536b01a267aff8f88ec491999a401479fe260e1e6b7b3ce0ef0",
+            "version": "v3.27.0"
+        },
+        "secrets_providers": {
+            "type": "service",
+            "state": {
+                "url": "https://api.pulumi.com",
+                "owner": "lebergarrett",
+                "project": "lebergarrett.com-backend-aws",
+                "stack": "dev"
+            }
+        },
+        "resources": [
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default",
+                "custom": true,
+                "id": "3507cde4-5a0e-4116-9eb7-c637a7f77bae",
+                "type": "pulumi:providers:aws",
+                "inputs": {
+                    "region": "us-east-1",
+                    "version": "5.1.0"
+                },
+                "outputs": {
+                    "region": "us-east-1",
+                    "version": "5.1.0"
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "custom": false,
+                "type": "pulumi:pulumi:Stack",
+                "outputs": {
+                    "Api Endpoint": "https://y3lwtge382.execute-api.us-east-1.amazonaws.com/prod",
+                    "Api Path": "getcount"
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0",
+                "custom": true,
+                "id": "6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "type": "pulumi:providers:aws",
+                "inputs": {
+                    "region": "us-east-1",
+                    "version": "5.1.0"
+                },
+                "outputs": {
+                    "region": "us-east-1",
+                    "version": "5.1.0"
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:s3/bucket:Bucket::lebergarrett",
+                "custom": true,
+                "id": "lebergarrett.com",
+                "type": "aws:s3/bucket:Bucket",
+                "inputs": {
+                    "__defaults": [
+                        "acl",
+                        "forceDestroy"
+                    ],
+                    "acl": "private",
+                    "bucket": "lebergarrett.com",
+                    "forceDestroy": false,
+                    "website": {
+                        "indexDocument": "index.html"
+                    }
+                },
+                "outputs": {
+                    "accelerationStatus": "",
+                    "acl": "private",
+                    "arn": "arn:aws:s3:::lebergarrett.com",
+                    "bucket": "lebergarrett.com",
+                    "bucketDomainName": "lebergarrett.com.s3.amazonaws.com",
+                    "bucketRegionalDomainName": "lebergarrett.com.s3.amazonaws.com",
+                    "corsRules": [],
+                    "forceDestroy": false,
+                    "grants": [],
+                    "hostedZoneId": "Z3AQBSTGFYJSTF",
+                    "id": "lebergarrett.com",
+                    "lifecycleRules": [],
+                    "loggings": [],
+                    "objectLockConfiguration": null,
+                    "region": "us-east-1",
+                    "replicationConfiguration": null,
+                    "requestPayer": "BucketOwner",
+                    "serverSideEncryptionConfiguration": null,
+                    "tags": {},
+                    "tagsAll": {},
+                    "versioning": {
+                        "enabled": false,
+                        "mfaDelete": false
+                    },
+                    "website": {
+                        "errorDocument": "",
+                        "indexDocument": "index.html",
+                        "redirectAllRequestsTo": "",
+                        "routingRules": ""
+                    },
+                    "websiteDomain": "s3-website-us-east-1.amazonaws.com",
+                    "websiteEndpoint": "lebergarrett.com.s3-website-us-east-1.amazonaws.com"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "bucket": null,
+                    "website": null
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:cloudfront/originAccessIdentity:OriginAccessIdentity::lebergarrett",
+                "custom": true,
+                "id": "E1RD164O0SVFFV",
+                "type": "aws:cloudfront/originAccessIdentity:OriginAccessIdentity",
+                "inputs": {
+                    "comment": "Allow Cloudfront distribution access to S3 bucket"
+                },
+                "outputs": {
+                    "callerReference": "terraform-20220331194022435500000001",
+                    "cloudfrontAccessIdentityPath": "origin-access-identity/cloudfront/E1RD164O0SVFFV",
+                    "comment": "Allow Cloudfront distribution access to S3 bucket",
+                    "etag": "E3CNRS0I6Q2DK3",
+                    "iamArn": "arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E1RD164O0SVFFV",
+                    "id": "E1RD164O0SVFFV",
+                    "s3CanonicalUserId": "fc0828a99020fd318e22cef4fc6180d91958d8f809dd212702ca7993b1ac7dba862db5f38e34b13e44e54b5a2e3ef5e0"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "comment": null
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:s3/bucketPolicy:BucketPolicy::lebergarrett",
+                "custom": true,
+                "id": "lebergarrett.com",
+                "type": "aws:s3/bucketPolicy:BucketPolicy",
+                "inputs": {
+                    "bucket": "lebergarrett.com",
+                    "policy": "{\"Statement\":[{\"Action\":\"s3:GetObject\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E1RD164O0SVFFV\"},\"Resource\":\"arn:aws:s3:::lebergarrett.com/*\",\"Sid\":\"\"}],\"Version\":\"2012-10-17\"}"
+                },
+                "outputs": {
+                    "bucket": "lebergarrett.com",
+                    "id": "lebergarrett.com",
+                    "policy": "{\"Statement\":[{\"Action\":\"s3:GetObject\",\"Effect\":\"Allow\",\"Principal\":{\"AWS\":\"arn:aws:iam::cloudfront:user/CloudFront Origin Access Identity E1RD164O0SVFFV\"},\"Resource\":\"arn:aws:s3:::lebergarrett.com/*\",\"Sid\":\"\"}],\"Version\":\"2012-10-17\"}"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:cloudfront/originAccessIdentity:OriginAccessIdentity::lebergarrett",
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:s3/bucket:Bucket::lebergarrett"
+                ],
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "bucket": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:s3/bucket:Bucket::lebergarrett"
+                    ],
+                    "policy": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:s3/bucket:Bucket::lebergarrett",
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:cloudfront/originAccessIdentity:OriginAccessIdentity::lebergarrett"
+                    ]
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:dynamodb/table:Table::visitors-app",
+                "custom": true,
+                "id": "lebergarrett-visitors",
+                "type": "aws:dynamodb/table:Table",
+                "inputs": {
+                    "attributes": [
+                        {
+                            "name": "website",
+                            "type": "S"
+                        }
+                    ],
+                    "billingMode": "PROVISIONED",
+                    "hashKey": "website",
+                    "name": "lebergarrett-visitors",
+                    "readCapacity": 1,
+                    "writeCapacity": 1
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":1800000000000,\"delete\":600000000000,\"update\":3600000000000},\"schema_version\":\"1\"}",
+                    "arn": "arn:aws:dynamodb:us-east-1:327910803467:table/lebergarrett-visitors",
+                    "attributes": [
+                        {
+                            "name": "website",
+                            "type": "S"
+                        }
+                    ],
+                    "billingMode": "PROVISIONED",
+                    "globalSecondaryIndexes": [],
+                    "hashKey": "website",
+                    "id": "lebergarrett-visitors",
+                    "localSecondaryIndexes": [],
+                    "name": "lebergarrett-visitors",
+                    "pointInTimeRecovery": {
+                        "enabled": false
+                    },
+                    "readCapacity": 1,
+                    "replicas": [],
+                    "serverSideEncryption": null,
+                    "streamArn": "",
+                    "streamEnabled": false,
+                    "streamLabel": "",
+                    "streamViewType": "",
+                    "tableClass": "",
+                    "tags": {},
+                    "tagsAll": {},
+                    "ttl": {
+                        "attributeName": "",
+                        "enabled": false
+                    },
+                    "writeCapacity": 1
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "attributes": null,
+                    "billingMode": null,
+                    "hashKey": null,
+                    "name": null,
+                    "readCapacity": null,
+                    "writeCapacity": null
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app",
+                "custom": true,
+                "id": "y3lwtge382",
+                "type": "aws:apigateway/restApi:RestApi",
+                "inputs": {
+                    "__defaults": [
+                        "minimumCompressionSize",
+                        "name"
+                    ],
+                    "minimumCompressionSize": -1,
+                    "name": "visitors-app-b1a663c"
+                },
+                "outputs": {
+                    "apiKeySource": "HEADER",
+                    "arn": "arn:aws:apigateway:us-east-1::/restapis/y3lwtge382",
+                    "binaryMediaTypes": [],
+                    "createdDate": "2022-03-31T19:40:24Z",
+                    "description": "",
+                    "disableExecuteApiEndpoint": false,
+                    "endpointConfiguration": {
+                        "types": "EDGE",
+                        "vpcEndpointIds": []
+                    },
+                    "executionArn": "arn:aws:execute-api:us-east-1:327910803467:y3lwtge382",
+                    "id": "y3lwtge382",
+                    "minimumCompressionSize": -1,
+                    "name": "visitors-app-b1a663c",
+                    "policy": "",
+                    "rootResourceId": "4or104yb3g",
+                    "tags": {},
+                    "tagsAll": {}
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:iam/role:Role::visitors-app",
+                "custom": true,
+                "id": "visitors-app-26c4da4",
+                "type": "aws:iam/role:Role",
+                "inputs": {
+                    "__defaults": [
+                        "forceDetachPolicies",
+                        "maxSessionDuration",
+                        "name",
+                        "path"
+                    ],
+                    "assumeRolePolicy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}",
+                    "forceDetachPolicies": false,
+                    "maxSessionDuration": 3600,
+                    "name": "visitors-app-26c4da4",
+                    "path": "/"
+                },
+                "outputs": {
+                    "arn": "arn:aws:iam::327910803467:role/visitors-app-26c4da4",
+                    "assumeRolePolicy": "{\"Version\":\"2012-10-17\",\"Statement\":[{\"Sid\":\"\",\"Effect\":\"Allow\",\"Principal\":{\"Service\":\"lambda.amazonaws.com\"},\"Action\":\"sts:AssumeRole\"}]}",
+                    "createDate": "2022-03-31T19:40:24Z",
+                    "description": "",
+                    "forceDetachPolicies": false,
+                    "id": "visitors-app-26c4da4",
+                    "inlinePolicies": [
+                        {
+                            "name": "visitors-app-f3cf9e2",
+                            "policy": "{\"Version\": \"2012-10-17\", \"Statement\": [{\"Action\": [\"dynamodb:UpdateItem\"], \"Effect\": \"Allow\", \"Resource\": \"arn:aws:dynamodb:us-east-1:327910803467:table/lebergarrett-visitors\"}]}"
+                        }
+                    ],
+                    "managedPolicyArns": [],
+                    "maxSessionDuration": 3600,
+                    "name": "visitors-app-26c4da4",
+                    "namePrefix": "",
+                    "path": "/",
+                    "tags": {},
+                    "tagsAll": {},
+                    "uniqueId": "AROAUYWIBZAFQZV6PGKLU"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "assumeRolePolicy": null
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:lambda/function:Function::visitors-app",
+                "custom": true,
+                "id": "visitors-app-05f3025",
+                "type": "aws:lambda/function:Function",
+                "inputs": {
+                    "__defaults": [
+                        "memorySize",
+                        "name",
+                        "packageType",
+                        "publish",
+                        "reservedConcurrentExecutions",
+                        "timeout"
+                    ],
+                    "code": "/var/folders/hq/3rcfw0_s7j70bj4dpc0l3t6c0000gn/T/pulumi-asset-0298ba83a15877eeccddeb57e4aa17f739dfa46c6e4857fe8bd93820ad2a5159",
+                    "handler": "main.lambda_handler",
+                    "memorySize": 128,
+                    "name": "visitors-app-05f3025",
+                    "packageType": "Zip",
+                    "publish": false,
+                    "reservedConcurrentExecutions": -1,
+                    "role": "arn:aws:iam::327910803467:role/visitors-app-26c4da4",
+                    "runtime": "python3.8",
+                    "timeout": 3
+                },
+                "outputs": {
+                    "__meta": "{\"e2bfb730-ecaa-11e6-8f88-34363bc7c4c0\":{\"create\":600000000000}}",
+                    "architectures": [
+                        "x86_64"
+                    ],
+                    "arn": "arn:aws:lambda:us-east-1:327910803467:function:visitors-app-05f3025",
+                    "code": "/var/folders/hq/3rcfw0_s7j70bj4dpc0l3t6c0000gn/T/pulumi-asset-0298ba83a15877eeccddeb57e4aa17f739dfa46c6e4857fe8bd93820ad2a5159",
+                    "codeSigningConfigArn": "",
+                    "deadLetterConfig": null,
+                    "description": "",
+                    "environment": null,
+                    "fileSystemConfig": null,
+                    "handler": "main.lambda_handler",
+                    "id": "visitors-app-05f3025",
+                    "imageConfig": null,
+                    "imageUri": "",
+                    "invokeArn": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:327910803467:function:visitors-app-05f3025/invocations",
+                    "kmsKeyArn": "",
+                    "lastModified": "2022-03-31T20:17:56.000+0000",
+                    "layers": [],
+                    "memorySize": 128,
+                    "name": "visitors-app-05f3025",
+                    "packageType": "Zip",
+                    "publish": false,
+                    "qualifiedArn": "arn:aws:lambda:us-east-1:327910803467:function:visitors-app-05f3025:$LATEST",
+                    "reservedConcurrentExecutions": -1,
+                    "role": "arn:aws:iam::327910803467:role/visitors-app-26c4da4",
+                    "runtime": "python3.8",
+                    "signingJobArn": "",
+                    "signingProfileVersionArn": "",
+                    "sourceCodeHash": "UTsOkcJM76igR5V11xfvvEqlgQARs6ColdScmFRMAZ8=",
+                    "sourceCodeSize": 990,
+                    "tags": {},
+                    "tagsAll": {},
+                    "timeout": 3,
+                    "tracingConfig": {
+                        "mode": "PassThrough"
+                    },
+                    "version": "$LATEST",
+                    "vpcConfig": null
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:iam/role:Role::visitors-app"
+                ],
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "code": null,
+                    "handler": null,
+                    "role": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:iam/role:Role::visitors-app"
+                    ],
+                    "runtime": null
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:iam/rolePolicy:RolePolicy::visitors-app",
+                "custom": true,
+                "id": "visitors-app-26c4da4:visitors-app-f3cf9e2",
+                "type": "aws:iam/rolePolicy:RolePolicy",
+                "inputs": {
+                    "__defaults": [
+                        "name"
+                    ],
+                    "name": "visitors-app-f3cf9e2",
+                    "policy": "{\"Version\": \"2012-10-17\", \"Statement\": [{\"Action\": [\"dynamodb:UpdateItem\"], \"Effect\": \"Allow\", \"Resource\": \"arn:aws:dynamodb:us-east-1:327910803467:table/lebergarrett-visitors\"}]}",
+                    "role": "visitors-app-26c4da4"
+                },
+                "outputs": {
+                    "id": "visitors-app-26c4da4:visitors-app-f3cf9e2",
+                    "name": "visitors-app-f3cf9e2",
+                    "policy": "{\"Version\": \"2012-10-17\", \"Statement\": [{\"Action\": [\"dynamodb:UpdateItem\"], \"Effect\": \"Allow\", \"Resource\": \"arn:aws:dynamodb:us-east-1:327910803467:table/lebergarrett-visitors\"}]}",
+                    "role": "visitors-app-26c4da4"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:dynamodb/table:Table::visitors-app",
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:iam/role:Role::visitors-app"
+                ],
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "policy": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:dynamodb/table:Table::visitors-app"
+                    ],
+                    "role": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:iam/role:Role::visitors-app"
+                    ]
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/resource:Resource::visitors-app",
+                "custom": true,
+                "id": "g11hf4",
+                "type": "aws:apigateway/resource:Resource",
+                "inputs": {
+                    "parentId": "4or104yb3g",
+                    "pathPart": "getcount",
+                    "restApi": "y3lwtge382"
+                },
+                "outputs": {
+                    "id": "g11hf4",
+                    "parentId": "4or104yb3g",
+                    "path": "/getcount",
+                    "pathPart": "getcount",
+                    "restApi": "y3lwtge382"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app"
+                ],
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "parentId": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app"
+                    ],
+                    "pathPart": null,
+                    "restApi": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app"
+                    ]
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:lambda/permission:Permission::visitors-app",
+                "custom": true,
+                "id": "AllowAPIGatewayInvoke",
+                "type": "aws:lambda/permission:Permission",
+                "inputs": {
+                    "action": "lambda:InvokeFunction",
+                    "function": "visitors-app-05f3025",
+                    "principal": "apigateway.amazonaws.com",
+                    "sourceArn": "arn:aws:execute-api:us-east-1:327910803467:y3lwtge382/*/*",
+                    "statementId": "AllowAPIGatewayInvoke"
+                },
+                "outputs": {
+                    "action": "lambda:InvokeFunction",
+                    "function": "visitors-app-05f3025",
+                    "id": "AllowAPIGatewayInvoke",
+                    "principal": "apigateway.amazonaws.com",
+                    "qualifier": "",
+                    "sourceArn": "arn:aws:execute-api:us-east-1:327910803467:y3lwtge382/*/*",
+                    "statementId": "AllowAPIGatewayInvoke"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app",
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:lambda/function:Function::visitors-app"
+                ],
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "action": null,
+                    "function": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:lambda/function:Function::visitors-app"
+                    ],
+                    "principal": null,
+                    "sourceArn": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app"
+                    ],
+                    "statementId": null
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/method:Method::visitors-app",
+                "custom": true,
+                "id": "agm-y3lwtge382-g11hf4-ANY",
+                "type": "aws:apigateway/method:Method",
+                "inputs": {
+                    "__defaults": [
+                        "apiKeyRequired"
+                    ],
+                    "apiKeyRequired": false,
+                    "authorization": "NONE",
+                    "httpMethod": "ANY",
+                    "resourceId": "g11hf4",
+                    "restApi": "y3lwtge382"
+                },
+                "outputs": {
+                    "apiKeyRequired": false,
+                    "authorization": "NONE",
+                    "authorizationScopes": [],
+                    "authorizerId": "",
+                    "httpMethod": "ANY",
+                    "id": "agm-y3lwtge382-g11hf4-ANY",
+                    "operationName": "",
+                    "requestModels": {},
+                    "requestParameters": {},
+                    "requestValidatorId": "",
+                    "resourceId": "g11hf4",
+                    "restApi": "y3lwtge382"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/resource:Resource::visitors-app",
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app"
+                ],
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "authorization": null,
+                    "httpMethod": null,
+                    "resourceId": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/resource:Resource::visitors-app"
+                    ],
+                    "restApi": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app"
+                    ]
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/integration:Integration::visitors-app",
+                "custom": true,
+                "id": "agi-y3lwtge382-g11hf4-ANY",
+                "type": "aws:apigateway/integration:Integration",
+                "inputs": {
+                    "__defaults": [
+                        "connectionType",
+                        "timeoutMilliseconds"
+                    ],
+                    "connectionType": "INTERNET",
+                    "httpMethod": "ANY",
+                    "integrationHttpMethod": "POST",
+                    "resourceId": "g11hf4",
+                    "restApi": "y3lwtge382",
+                    "timeoutMilliseconds": 29000,
+                    "type": "AWS_PROXY",
+                    "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:327910803467:function:visitors-app-05f3025/invocations"
+                },
+                "outputs": {
+                    "cacheKeyParameters": [],
+                    "cacheNamespace": "g11hf4",
+                    "connectionId": "",
+                    "connectionType": "INTERNET",
+                    "contentHandling": "",
+                    "credentials": "",
+                    "httpMethod": "ANY",
+                    "id": "agi-y3lwtge382-g11hf4-ANY",
+                    "integrationHttpMethod": "POST",
+                    "passthroughBehavior": "WHEN_NO_MATCH",
+                    "requestParameters": {},
+                    "requestTemplates": {},
+                    "resourceId": "g11hf4",
+                    "restApi": "y3lwtge382",
+                    "timeoutMilliseconds": 29000,
+                    "tlsConfig": null,
+                    "type": "AWS_PROXY",
+                    "uri": "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:327910803467:function:visitors-app-05f3025/invocations"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/method:Method::visitors-app",
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app",
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:lambda/function:Function::visitors-app"
+                ],
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "httpMethod": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/method:Method::visitors-app"
+                    ],
+                    "integrationHttpMethod": null,
+                    "resourceId": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/method:Method::visitors-app"
+                    ],
+                    "restApi": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app"
+                    ],
+                    "type": null,
+                    "uri": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:lambda/function:Function::visitors-app"
+                    ]
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/deployment:Deployment::visitors-app",
+                "custom": true,
+                "id": "za8tma",
+                "type": "aws:apigateway/deployment:Deployment",
+                "inputs": {
+                    "restApi": "y3lwtge382",
+                    "stageName": "prod"
+                },
+                "outputs": {
+                    "createdDate": "2022-03-31T19:47:02Z",
+                    "description": "",
+                    "executionArn": "arn:aws:execute-api:us-east-1:327910803467:y3lwtge382/prod",
+                    "id": "za8tma",
+                    "invokeUrl": "https://y3lwtge382.execute-api.us-east-1.amazonaws.com/prod",
+                    "restApi": "y3lwtge382",
+                    "stageName": "prod"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "dependencies": [
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/integration:Integration::visitors-app",
+                    "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app"
+                ],
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "restApi": [
+                        "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:apigateway/restApi:RestApi::visitors-app"
+                    ],
+                    "stageName": null
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:route53/record:Record::www.lebergarrett.com",
+                "custom": true,
+                "id": "Z10428583HV6Z7QJS975M_lebergarrett.com_CNAME",
+                "type": "aws:route53/record:Record",
+                "inputs": {
+                    "name": "lebergarrett.com",
+                    "records": [
+                        "lebergarrett.com"
+                    ],
+                    "ttl": 300,
+                    "type": "CNAME",
+                    "zoneId": "Z10428583HV6Z7QJS975M"
+                },
+                "outputs": {
+                    "__meta": "{\"schema_version\":\"2\"}",
+                    "aliases": [],
+                    "failoverRoutingPolicies": [],
+                    "fqdn": "lebergarrett.com.garrettleber.com",
+                    "geolocationRoutingPolicies": [],
+                    "healthCheckId": "",
+                    "id": "Z10428583HV6Z7QJS975M_lebergarrett.com_CNAME",
+                    "latencyRoutingPolicies": [],
+                    "name": "lebergarrett.com",
+                    "records": [
+                        "lebergarrett.com"
+                    ],
+                    "setIdentifier": "",
+                    "ttl": 300,
+                    "type": "CNAME",
+                    "weightedRoutingPolicies": [],
+                    "zoneId": "Z10428583HV6Z7QJS975M"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "name": null,
+                    "records": null,
+                    "ttl": null,
+                    "type": null,
+                    "zoneId": null
+                },
+                "sequenceNumber": 1
+            },
+            {
+                "urn": "urn:pulumi:dev::lebergarrett.com-backend-aws::aws:route53/record:Record::www-lebergarrett",
+                "custom": true,
+                "id": "Z08065781TH493J6X8GXR_www.lebergarrett.com_CNAME",
+                "type": "aws:route53/record:Record",
+                "inputs": {
+                    "name": "www.lebergarrett.com",
+                    "records": [
+                        "lebergarrett.com"
+                    ],
+                    "ttl": 300,
+                    "type": "CNAME",
+                    "zoneId": "Z08065781TH493J6X8GXR"
+                },
+                "outputs": {
+                    "__meta": "{\"schema_version\":\"2\"}",
+                    "aliases": [],
+                    "failoverRoutingPolicies": [],
+                    "fqdn": "www.lebergarrett.com",
+                    "geolocationRoutingPolicies": [],
+                    "healthCheckId": "",
+                    "id": "Z08065781TH493J6X8GXR_www.lebergarrett.com_CNAME",
+                    "latencyRoutingPolicies": [],
+                    "name": "www.lebergarrett.com",
+                    "records": [
+                        "lebergarrett.com"
+                    ],
+                    "setIdentifier": "",
+                    "ttl": 300,
+                    "type": "CNAME",
+                    "weightedRoutingPolicies": [],
+                    "zoneId": "Z08065781TH493J6X8GXR"
+                },
+                "parent": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:pulumi:Stack::lebergarrett.com-backend-aws-dev",
+                "provider": "urn:pulumi:dev::lebergarrett.com-backend-aws::pulumi:providers:aws::default_5_1_0::6a64506f-189b-4ff3-9d06-4e421498fb0a",
+                "propertyDependencies": {
+                    "name": null,
+                    "records": null,
+                    "ttl": null,
+                    "type": null,
+                    "zoneId": null
+                },
+                "sequenceNumber": 1
+            }
+        ],
+        "pending_operations": []
+    }
+}
