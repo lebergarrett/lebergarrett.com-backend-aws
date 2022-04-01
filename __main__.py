@@ -6,9 +6,10 @@ import tldextract
 
 # Pull in config from "./Pulumi.<stack>.yaml"
 config = pulumi.Config()
-site_domain = config.require('domain')
+site_domains = config.require_object('domains')
 
-split_domain = tldextract.extract(site_domain)
+split_domain = tldextract.extract(site_domains[0])
+site_domain = site_domains[0]
 site_name = '.'.join(filter(None, split_domain[:2])) # Get all except TLD and rejoin
 site_tld = split_domain[-1] # TLD is last element
 
@@ -41,17 +42,21 @@ website_bucket_policy = aws.s3.BucketPolicy(site_name,
     policy=website_bucket_policy_document.json,
 )
 
+domain_alt_names = [[".".join(filter(None, [subdomain, domain])) for domain in site_domains] for subdomain in ["", "www"]]
+domain_alt_names = [item for sublist in domain_alt_names for item in sublist]
+domain_alt_names.remove(site_domain)
+
 website_ssl_certificate = aws.acm.Certificate(site_name,
     domain_name=site_domain,
     validation_method="DNS",
-    subject_alternative_names=[f"www.{site_domain}"]
+    subject_alternative_names=domain_alt_names,
 )
 
 s3_origin_id = f"{site_name}-S3"
 
 cloudfront_distribution = aws.cloudfront.Distribution(site_name,
     enabled=True,
-    aliases=[site_domain, f"www.{site_domain}"],
+    aliases=[site_domain] + domain_alt_names,
     default_root_object="index.html",
     is_ipv6_enabled=True,
 
@@ -92,27 +97,33 @@ cloudfront_distribution = aws.cloudfront.Distribution(site_name,
     ),
 )
 
-domain_zone = aws.route53.get_zone(name=site_domain)
+domain_zones = []
+for i, domain in enumerate(site_domains):
+    domain_zones.append(aws.route53.get_zone(name=domain))
 
-website_record = aws.route53.Record(site_name,
-    zone_id=domain_zone.zone_id,
-    name=site_domain,
-    type="A",
+records = []
+for i, domain in enumerate(site_domains):
+    records.append(aws.route53.Record(domain,
+        zone_id=domain_zones[i].zone_id,
+        name=site_domain,
+        type="A",
 
-    aliases=[aws.route53.RecordAliasArgs(
-        name=cloudfront_distribution.domain_name,
-        zone_id=cloudfront_distribution.hosted_zone_id,
-        evaluate_target_health=False,
-    )]
-)
+        aliases=[aws.route53.RecordAliasArgs(
+            name=cloudfront_distribution.domain_name,
+            zone_id=cloudfront_distribution.hosted_zone_id,
+            evaluate_target_health=False,
+        )]
+    ))
 
-www_redirect = aws.route53.Record(f"www-{site_name}",
-    zone_id=domain_zone.zone_id,
-    name=f"www.{site_domain}",
-    type="CNAME",
-    ttl=300,
-    records=[site_domain]
-)
+redirects = []
+for i, domain in enumerate(site_domains):
+    redirects.append(aws.route53.Record(f"www.{domain}",
+        zone_id=domain_zones[i].zone_id,
+        name=f"www.{domain}",
+        type="CNAME",
+        ttl=300,
+        records=[domain]
+    ))
 
 # ---------- Visitors App ----------
 app_name = "visitors-app"
