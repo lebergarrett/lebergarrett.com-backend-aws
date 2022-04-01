@@ -105,7 +105,7 @@ records = []
 for i, domain in enumerate(site_domains):
     records.append(aws.route53.Record(domain,
         zone_id=domain_zones[i].zone_id,
-        name=site_domain,
+        name=domain,
         type="A",
 
         aliases=[aws.route53.RecordAliasArgs(
